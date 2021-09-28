@@ -1,7 +1,11 @@
+import { mdiOpenInNew } from "@mdi/js";
+import Icon from "@mdi/react";
 import { useMemo } from "react";
 import { Column, useTable } from "react-table";
+import * as T from './Table.styles'
 
 type Data = {
+  preview: React.ReactNode,
   col1: string,
   col2: string,
   actions: string
@@ -15,17 +19,32 @@ export default function Table() {
       {
         col1: 'Hello',
         col2: 'World',
-        actions: 'acções'
+        actions: 'acções',
+        preview: <Icon
+          size="14px"
+          color="#09f"
+          path={mdiOpenInNew}
+        />
       },
       {
         col1: 'react-table',
         col2: 'rocks',
-        actions: 'acções'
+        actions: 'acções',
+        preview: <Icon
+          size="14px"
+          color="#09f"
+          path={mdiOpenInNew}
+        />
       },
       {
         col1: 'whatever',
         col2: 'you want',
-        actions: 'acções'
+        actions: 'acções',
+        preview: <Icon
+          size="14px"
+          color="#09f"
+          path={mdiOpenInNew}
+        />
       },
     ],
     []
@@ -34,12 +53,22 @@ export default function Table() {
   const columns = useMemo<Column<Data>[]>(
     () => [
       {
+        accessor: 'preview'
+      },
+      {
         Header: 'Column 1',
-        accessor: 'col1'
+        accessor: 'col1',
+        width: 320,
+        Cell: (row) => <div style={{ textAlign: "right" }}>{row.value}</div>
       },
       {
         Header: 'Column 2',
-        accessor: 'col2'
+        accessor: 'col2',
+        Cell: (row) => <div style={{ textAlign: "center" }}>{row.value}</div>
+      },
+      {
+        Header: 'Ações',
+        accessor: 'actions'
       },
     ],
     []
@@ -55,41 +84,41 @@ export default function Table() {
   } = useTable<Data>({ data, columns })
 
   return (
-    <table {...getTableProps()}>
-      <thead>
+    <T.Wrapper cellPadding={0} cellSpacing={0} {...getTableProps()}>
+      <T.Heading>
         {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <T.HeadingRow {...headerGroup.getHeaderGroupProps()}>
             {
               headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>
+                <T.HeadingCell {...column.getHeaderProps()}>
                   {column.render('Header')}
-                </th>
+                </T.HeadingCell>
               ))
             }
-          </tr>
+          </T.HeadingRow>
         ))}
-      </thead>
+      </T.Heading>
 
-      <tbody {...getTableBodyProps()}>
+      <T.Body {...getTableBodyProps()}>
 
         {
           rows.map(row => {
             prepareRow(row)
             return (
-              <tr {...row.getRowProps()}>
+              <T.BodyRow {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
-                    <td {...cell.getCellProps()}>
+                    <T.BodyCell {...cell.getCellProps()}>
                       {cell.render('Cell')}
-                    </td>
+                    </T.BodyCell>
                   )
                 })}
-              </tr>
+              </T.BodyRow>
             )
           })
         }
 
-      </tbody>
-    </table>
+      </T.Body>
+    </T.Wrapper>
   )
 }
