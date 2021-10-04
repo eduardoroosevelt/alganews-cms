@@ -5,17 +5,14 @@ export interface ParagraphProps {
   children: React.ReactNode
 }
 
-export default function Paragraph({ size, children }: ParagraphProps) {
+export default function Paragraph ({ size, children }: ParagraphProps) {
   return <StyledParagraph size={size || 'default'}>
-    {children}
+    { children }
   </StyledParagraph>
 }
 
-
 const StyledParagraph = styled.p<{ size: 'default' | 'small' }>`
-  font-size:${p => p.size == 'default' ? 14 : 12}px;
-  line-height:${p => p.size == 'default' ? 25 : 20}px;
-  color:'#274060'
-
-
+  font-size: ${p => p.size === 'default' ? 14 : 12}px;
+  line-height: ${p => p.size === 'default' ? 25 : 20}px;
+  color: #274060;
 `
