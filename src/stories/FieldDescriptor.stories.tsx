@@ -1,4 +1,3 @@
-
 import { Story, Meta } from '@storybook/react';
 import FieldDescriptor, { FieldDescriptorProps } from '../app/components/FieldDescriptor/FieldDescriptor';
 
