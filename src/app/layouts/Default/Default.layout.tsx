@@ -1,7 +1,7 @@
 import React from "react";
-import Logo from "../../app/components/Logo";
-import NavBar from "../../app/components/NavBar";
-import SessionController from "../../app/components/SessionController";
+import Logo from "../../components/Logo";
+import NavBar from "../../components/NavBar";
+import SessionController from "../../components/SessionController";
 import * as DL from './Default.layout.styles'
 
 interface DefaultLayoutProps {
